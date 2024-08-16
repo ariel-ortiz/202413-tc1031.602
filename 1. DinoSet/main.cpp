@@ -24,5 +24,9 @@ int main()
     std::cout << "a.contains(DinoId::tyrannosaurus) = " << a.contains(DinoId::tyrannosaurus) << "\n";
     std::cout << "a.contains(DinoId::procompsognathus) = " << a.contains(DinoId::procompsognathus) << "\n";
 
+    DinoSet c;
+    c = a + b;
+    std::cout << "c = " << c.to_string() << "\n";
+
     return 0;
 }
