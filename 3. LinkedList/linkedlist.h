@@ -1,6 +1,7 @@
 #pragma once
 
 #include <sstream>
+#include <stdexcept>
 
 template<typename T>
 class LinkedList {
@@ -15,6 +16,18 @@ public:
         _sentinel->prev = _sentinel;
     }
 
+    // Complexity: O(N), where N is the size of args
+    LinkedList(std::initializer_list<T> args) : LinkedList()
+    {
+        for (T arg : args) {
+            insert_back(arg);
+        }
+    }
+
+    LinkedList(const LinkedList& other) = delete;
+
+    LinkedList<T>& operator=(const LinkedList& other) = delete;
+
     // Complexity: O(N)
     ~LinkedList()
     {
@@ -28,6 +41,18 @@ public:
     }
 
     // Complexity: O(1)
+    void insert_back(T value)
+    {
+        Node* p = new Node;
+        p->value = value;
+        p->next = _sentinel;
+        p->prev = _sentinel->prev;
+        _sentinel->prev->next = p;
+        _sentinel->prev = p;
+        _size++;
+    }
+
+    // Complexity: O(1)
     void insert_front(T value)
     {
         Node* p = new Node;
@@ -37,6 +62,28 @@ public:
         _sentinel->next->prev = p;
         _sentinel->next = p;
         _size++;
+    }
+
+    // Complexity: O(1)
+    bool is_empty() const
+    {
+        return not _size;
+    }
+
+    // Complexity: O(1)
+    T remove_front()
+    {
+        if(is_empty()) {
+            throw std::length_error(
+                "Can't remove from an empty list");
+        }
+        Node* p = _sentinel->next;
+        T result = p->value;
+        _sentinel->next = p->next;
+        p->next->prev = _sentinel;
+        delete p;
+        _size--;
+        return result;
     }
 
     // Complexity: O(1)
