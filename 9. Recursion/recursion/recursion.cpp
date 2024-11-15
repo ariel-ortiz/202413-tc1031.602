@@ -78,14 +78,34 @@ IntList reverse(const IntList& a)
     return IntList {};
 }
 
+// Complexity: O(N), where N is size(a) + size(b)
 IntList merge(const IntList& a, const IntList& b)
 {
-    return IntList {};
+    if (is_empty(a)) {
+        return b;
+    }
+    if (is_empty(b)) {
+        return a;
+    }
+    if (first(a) < first(b)) {
+        return cons(first(a), merge(rest(a), b));
+    }
+    return cons(first(b), merge(a, rest(b)));
 }
 
+// Time complexity: O(N), where N is the size(a)
 bool is_prefix(const IntList& a, const IntList& b)
 {
-    return false;
+    if (is_empty(a)) {
+        return true;
+    }
+    if (is_empty(b)) {
+        return false;
+    }
+    if (first(a) != first(b)) {
+        return false;
+    }
+    return is_prefix(rest(a), rest(b));
 }
 
 IntList insert(int value, const IntList& a)

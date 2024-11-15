@@ -23,6 +23,8 @@ int main()
     std::cout << "duplicate(a) = " << duplicate(a) << "\n";
     std::cout << "duplicate(b) = " << duplicate(b) << "\n";
     std::cout << "last(b) = " << last(b) << "\n";
-
+    std::cout << merge(IntList {4, 15, 23, 42}, IntList {8, 16}) << "\n";
+    std::cout << is_prefix(IntList {4, 8}, IntList {4, 8, 15, 16, 23}) << "\n";
+    std::cout << is_prefix(IntList {4, 8, 14}, IntList {4, 8, 15, 16, 23}) << "\n";
     return 0;
 }
